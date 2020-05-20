@@ -9,11 +9,7 @@ import requests
 import time
 from datetime import datetime
 
-def group_states(raw_df, state_list):
-    for state in state_list:
-        raw_state = raw_df.loc[raw_df['state'] == state]
 
-    # code here
 
 
 def state_case_data_sort(state_data):
@@ -28,7 +24,7 @@ def state_case_data_sort(state_data):
         else:
             new_state_case.append(0)
     return new_state_case
-    
+
 def state_death_data_sort(state_data)
     # find new deaths from total death.
     deaths_state = [case for case in state_data['deaths']]
@@ -45,3 +41,15 @@ def state_death_data_sort(state_data)
     #state_data['new_deaths'] = new_state_deaths
     return new_state_deaths
     #return state_data
+
+def group_states(raw_df, state_list):
+    all_new_state_deaths = []
+    all_new_state_cases = []
+    for state in state_list:
+        raw_state = raw_df.loc[raw_df['state'] == state]
+        new_deaths = state_death_data_sort(raw_state)
+        new_cases = state_case_data_sort(raw_state)
+        [all_new_state_cases.append(row) for row in new_cases]
+        [all_new_state_deaths.append(row) for row in new_deaths]
+
+    # code here
