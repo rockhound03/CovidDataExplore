@@ -69,7 +69,7 @@ def prep_for_db(master_df):
     class State(Base):
         __tablename__ = 'location'
         id = Column(Integer, primary_key=True)
-        city_name = Column(String(255))
+        state_name = Column(String(255))
         date = Column(String(255))
         cases = Column(Integer)
         deaths = Column(Integer)
@@ -78,7 +78,7 @@ def prep_for_db(master_df):
 
     data_ready = []
     for i,state_day in master_df.iterrows():
-        data_ready.append(State(city_name = state_day['state'],date = state_day['date'], cases=state_day['cases'],deaths=state_day['deaths'],
+        data_ready.append(State(state_name = state_day['state'],date = state_day['date'], cases=state_day['cases'],deaths=state_day['deaths'],
                       new_cases=state_day['new_cases'],new_deaths=state_day['new_deaths']))
     engine = create_engine("sqlite:///coviddata.sqlite")
     conn = engine.connect()
