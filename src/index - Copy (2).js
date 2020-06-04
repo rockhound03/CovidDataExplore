@@ -1,49 +1,97 @@
 import React from 'react';
-import {BootstrapTable, 
-  TableHeaderColumn} from 'react-bootstrap-table';
-import './css/Table.css';
-import './react-bootstrap-table/css/react-bootstrap-table.css'
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
-class ProductRow extends React.Component {
+class ProductCategoryRow extends React.Component {
   render() {
+    const category = this.props.category;
     return (
-      <div>
-        <BootstrapTable data={this.props.products} striped hover>
-          <TableHeaderColumn isKey dataField='date'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90">Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='state'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90"
-                              tdStyle={
-                                 {backgroundColor: 'wheat'}}>State</TableHeaderColumn>
-          <TableHeaderColumn dataField='cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Deaths</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Deaths</TableHeaderColumn>
-        </BootstrapTable>
-      </div>
+      <tr>
+        <th colSpan="2">
+          {category}
+        </th>
+      </tr>
     );
   }
 }
 
+class ProductRow extends React.Component {
+  render() {
+    const product = this.props.product;
+    const name = product.stocked ?
+      product.name :
+      <span style={{color: 'red'}}>
+        {product.name}
+      </span>;
+
+    return (
+      <tr>
+        <td>{name}</td>
+        <td>{product.price}</td>
+      </tr>
+    );
+  }
+}
+
+class ProductTable extends React.Component {
+  render() {
+    const rows = [];
+    let lastCategory = null;
+    
+    this.props.products.forEach((product) => {
+      if (product.category !== lastCategory) {
+        rows.push(
+          <ProductCategoryRow
+            category={product.category}
+            key={product.category} />
+        );
+      }
+      rows.push(
+        <ProductRow
+          product={product}
+          key={product.name} />
+      );
+      lastCategory = product.category;
+    });
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Cases</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
+}
+
+class SearchBar extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search..." />
+        <p>
+          <input type="checkbox" />
+          {' '}
+          Only show products in stock
+        </p>
+      </form>
+    );
+  }
+}
+class FilterableProductTable extends React.Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <ProductTable products={this.props.products} />
+      </div>
+    );
+  }
+}
 
 const CITYDATA = [
   {date:'3/1/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:1},
@@ -95,6 +143,6 @@ const PRODUCTS = [
 // ========================================
 
 ReactDOM.render(
-  <ProductRow products={CITYDATA} />,
+  <FilterableProductTable products={PRODUCTS} />,
   document.getElementById('root')
 );

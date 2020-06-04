@@ -6,44 +6,104 @@ import './react-bootstrap-table/css/react-bootstrap-table.css'
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
-class ProductRow extends React.Component {
+class ProductCategoryRow extends React.Component {
   render() {
+    const states = this.props.state;
     return (
-      <div>
-        <BootstrapTable data={this.props.products} striped hover>
-          <TableHeaderColumn isKey dataField='date'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90">Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='state'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90"
-                              tdStyle={
-                                 {backgroundColor: 'wheat'}}>State</TableHeaderColumn>
-          <TableHeaderColumn dataField='cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Deaths</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Deaths</TableHeaderColumn>
-        </BootstrapTable>
-      </div>
+      <tr>
+        <th colSpan="6">
+          {states}
+        </th>
+      </tr>
     );
   }
 }
 
+class ProductRow extends React.Component {
+  render() {
+    const product = this.props.product;
+    const caseStatus = product.cases > 20?
+      product.cases :
+      <span style={{color: 'red'}}>
+        {product.cases}
+      </span>;
+
+    return (
+      <tr>
+        <td>{product.state}</td>
+        <td>{product.date}</td>
+        <td>{product.cases}</td>
+        <td>{product.new_cases}</td>
+        <td>{product.deaths}</td>
+        <td>{product.new_deaths}</td>
+      </tr>
+    );
+  }
+}
+
+class ProductTable extends React.Component {
+  render() {
+    const rows = [];
+    let lastCategory = null;
+    
+    this.props.products.forEach((product) => {
+      if (product.category !== lastCategory) {
+        rows.push(
+          <ProductCategoryRow
+            category={product.state}
+            key={product.state} />
+        );
+      }
+      rows.push(
+        <ProductRow
+          product={product}
+          key={product.state} />
+      );
+      lastCategory = product.state;
+    });
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Date</th>
+            <th>Cases</th>
+            <th>New Cases</th>
+            <th>Deaths</th>
+            <th>New Deaths</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
+}
+
+class SearchBar extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search..." />
+        <p>
+          <input type="checkbox" />
+          {' '}
+          Only show products in stock
+        </p>
+      </form>
+    );
+  }
+}
+class FilterableProductTable extends React.Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <ProductTable products={this.props.products} />
+      </div>
+    );
+  }
+}
 
 const CITYDATA = [
   {date:'3/1/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:1},
@@ -95,6 +155,6 @@ const PRODUCTS = [
 // ========================================
 
 ReactDOM.render(
-  <ProductRow products={CITYDATA} />,
+  <FilterableProductTable products={CITYDATA} />,
   document.getElementById('root')
 );
