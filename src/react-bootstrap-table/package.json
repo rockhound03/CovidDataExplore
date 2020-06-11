@@ -61,7 +61,7 @@
     "gulp-shell": "^0.5.2",
     "history": "3.0.0",
     "jest-cli": "^19.0.2",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.1",
     "jsx-loader": "^0.13.2",
     "react": "16.0.0",
     "react-bootstrap": "0.31.3",
