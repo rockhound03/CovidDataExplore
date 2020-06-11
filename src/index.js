@@ -8,11 +8,11 @@ import './index.css';
 
 const COVIDDATA = require('./covid.json');
 console.log(COVIDDATA)
-class ProductRow extends React.Component {
+class CasesRow extends React.Component {
   render() {
     return (
       <div>
-        <BootstrapTable data={this.props.products} striped hover>
+        <BootstrapTable data={this.props.statedata} striped hover>
           <TableHeaderColumn isKey dataField='date'
                               dataAlign='center'
                               headerAlign="center"
@@ -45,6 +45,26 @@ class ProductRow extends React.Component {
   }
 }
 
+class SearchBar extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search State..." />
+      </form>
+    );
+  }
+}
+
+class FilterStateCaseTable extends React.Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <CasesRow cases={this.props.statedata} />
+      </div>
+    )
+  }
+}
 
 const COVIDSTUB = [
   {date:'3/1/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:1},
@@ -89,6 +109,6 @@ const COVIDSTUB = [
 // ========================================
 
 ReactDOM.render(
-  <ProductRow products={COVIDDATA} />,
+  <FilterStateCaseTable statedata={COVIDDATA} />,
   document.getElementById('root')
 );
