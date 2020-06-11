@@ -6,7 +6,8 @@ import './react-bootstrap-table/css/react-bootstrap-table.css'
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
+const COVIDDATA = require('./covid.json');
+console.log(COVIDDATA)
 class ProductRow extends React.Component {
   render() {
     return (
@@ -45,7 +46,7 @@ class ProductRow extends React.Component {
 }
 
 
-const CITYDATA = [
+const COVIDSTUB = [
   {date:'3/1/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:1},
   {date:'3/2/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:0},
   {date:'3/3/2020',state:'New York',fips:36,cases:2,deaths:0,new_deaths:0,new_cases:1},
@@ -83,18 +84,11 @@ const CITYDATA = [
   {date:'4/4/2020',state:'New York',fips:36,cases:114996,deaths:3568,new_deaths:633,new_cases:12126}
   ];
 
-const PRODUCTS = [
-  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
-  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
-];
+
 
 // ========================================
 
 ReactDOM.render(
-  <ProductRow products={CITYDATA} />,
+  <ProductRow products={COVIDDATA} />,
   document.getElementById('root')
 );
