@@ -1,52 +1,99 @@
 import React from 'react';
-import {BootstrapTable, 
-  TableHeaderColumn} from 'react-bootstrap-table';
-import './css/Table.css';
-import './react-bootstrap-table/css/react-bootstrap-table.css'
 import ReactDOM from 'react-dom';
 import './index.css';
 
-const COVIDDATA = require('./covid.json');
-console.log(COVIDDATA)
+class ProductCategoryRow extends React.Component {
+  render() {
+    const category = this.props.category;
+    return (
+      <tr>
+        <th colSpan="2">
+          {category}
+        </th>
+      </tr>
+    );
+  }
+}
+
 class ProductRow extends React.Component {
+  render() {
+    const product = this.props.product;
+    const name = product.stocked ?
+      product.name :
+      <span style={{color: 'red'}}>
+        {product.name}
+      </span>;
+
+    return (
+      <tr>
+        <td>{name}</td>
+        <td>{product.price}</td>
+      </tr>
+    );
+  }
+}
+
+class ProductTable extends React.Component {
+  render() {
+    const rows = [];
+    let lastCategory = null;
+    
+    this.props.products.forEach((product) => {
+      if (product.category !== lastCategory) {
+        rows.push(
+          <ProductCategoryRow
+            category={product.category}
+            key={product.category} />
+        );
+      }
+      rows.push(
+        <ProductRow
+          product={product}
+          key={product.name} />
+      );
+      lastCategory = product.category;
+    });
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Cases</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
+}
+
+class SearchBar extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search..." />
+        <p>
+          <input type="checkbox" />
+          {' '}
+          Only show products in stock
+        </p>
+      </form>
+    );
+  }
+}
+class FilterableProductTable extends React.Component {
   render() {
     return (
       <div>
-        <BootstrapTable data={this.props.products} striped hover>
-          <TableHeaderColumn isKey dataField='date'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90">Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='state'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90"
-                              tdStyle={
-                                 {backgroundColor: 'wheat'}}>State</TableHeaderColumn>
-          <TableHeaderColumn dataField='cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Deaths</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Deaths</TableHeaderColumn>
-        </BootstrapTable>
+        <SearchBar />
+        <ProductTable products={this.props.products} />
       </div>
     );
   }
 }
 
-
-const COVIDSTUB = [
+const CITYDATA = [
   {date:'3/1/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:1},
   {date:'3/2/2020',state:'New York',fips:36,cases:1,deaths:0,new_deaths:0,new_cases:0},
   {date:'3/3/2020',state:'New York',fips:36,cases:2,deaths:0,new_deaths:0,new_cases:1},
@@ -84,11 +131,18 @@ const COVIDSTUB = [
   {date:'4/4/2020',state:'New York',fips:36,cases:114996,deaths:3568,new_deaths:633,new_cases:12126}
   ];
 
-
+const PRODUCTS = [
+  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+];
 
 // ========================================
 
 ReactDOM.render(
-  <ProductRow products={COVIDDATA} />,
+  <FilterableProductTable products={PRODUCTS} />,
   document.getElementById('root')
 );
