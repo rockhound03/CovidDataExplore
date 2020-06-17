@@ -1,56 +1,65 @@
 import React from 'react';
-import {BootstrapTable, 
-  TableHeaderColumn} from 'react-bootstrap-table';
-import './css/Table.css';
-import './react-bootstrap-table/css/react-bootstrap-table.css'
 import ReactDOM from 'react-dom';
 import './index.css';
 
-const COVIDDATA = require('./covid.json');
-//console.log(COVIDDATA)
-class CasesRow extends React.Component {
+class ProductRow extends React.Component {
   render() {
-    //const filterText = this.props.filterText;
-    const casesbin = this.props.cases;
+    const dateState = this.props.dateState;
+    const date = dateState.date;
+    const state = dateState.state;
+    const cases = dateState.cases;
+    const newCases = dateState.new_cases;
+    const deaths = dateState.deaths;
+    const newDeaths = dateState.new_deaths;
 
     return (
-      <div>
-        <BootstrapTable data={casesbin} striped hover>
-          <TableHeaderColumn isKey dataField='date'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90">Date</TableHeaderColumn>
-          <TableHeaderColumn dataField='state'
-                              dataAlign='center'
-                              headerAlign="center"
-                              width="90"
-                              tdStyle={
-                                 {backgroundColor: 'wheat'}}>State</TableHeaderColumn>
-          <TableHeaderColumn dataField='cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_cases'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Cases</TableHeaderColumn>
-          <TableHeaderColumn dataField='deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">Deaths</TableHeaderColumn>
-          <TableHeaderColumn dataField='new_deaths'
-                              dataAlign='left'
-                              headerAlign="center"
-                              width="90">New Deaths</TableHeaderColumn>
-        </BootstrapTable>
-      </div>
+      <tr>
+        <td>{date}</td>
+        <td>{state}</td>
+        <td>{cases}</td>
+        <td>{newCases}</td>
+        <td>{deaths}</td>
+        <td>{newDeaths}</td>
+      </tr>
     );
   }
 }
 
-class CaseTable extends React.Component {
+class ProductTable extends React.Component {
+  render() {
+    const filterText = this.props.filterText;
 
-  
+    const rows = [];
+
+    this.props.allStateData.forEach((dateState) => {
+      if (dateState.state.indexOf(filterText) === -1) {
+        return;
+      }
+
+      rows.push(
+        <ProductRow
+          dateState={dateState}
+          key={dateState.row_index}
+        />
+      );
+    });
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>State</th>
+            <th>Cases</th>
+            <th>New Cases</th>
+            <th>Deaths</th>
+            <th>New Deaths</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
 }
 
 class SearchBar extends React.Component {
@@ -58,56 +67,70 @@ class SearchBar extends React.Component {
     super(props);
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
   }
-
+  
   handleFilterTextChange(e) {
     this.props.onFilterTextChange(e.target.value);
   }
+  
   render() {
     return (
       <form>
-        <input 
+        <input
           type="text"
-          placeholder="Search State..."
+          placeholder="Search..."
           value={this.props.filterText}
-          onChange={this.handleFilterTextChange} />
+          onChange={this.handleFilterTextChange}
+        />
       </form>
     );
   }
 }
 
-class FilterStateCaseTable extends React.Component {
+class FilterableProductTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filterText: ''
     };
-
+    
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
   }
 
   handleFilterTextChange(filterText) {
     this.setState({
-      filterText:filterText
-    })
+      filterText: filterText
+    });
   }
+
+
   render() {
     return (
       <div>
         <SearchBar
           filterText={this.state.filterText}
-          onFilterTextChange={this.handleFilterTextChange} />
-        <CasesRow 
-          cases={this.props.statedata}
-          filterText={this.state.filterText} 
+          onFilterTextChange={this.handleFilterTextChange}
+        />
+        <ProductTable
+          allStateData={this.props.allStateData}
+          filterText={this.state.filterText}
         />
       </div>
     );
   }
 }
 
-// ========================================
+const COVIDDATA = require('./covid_react.json');
+
+const PRODUCTS = [
+  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+];
 
 ReactDOM.render(
-  <FilterStateCaseTable statedata={COVIDDATA} />,
-  document.getElementById('root')
+  <FilterableProductTable allStateData={COVIDDATA} />,
+  document.getElementById('container')
 );
