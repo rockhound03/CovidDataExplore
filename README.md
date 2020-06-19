@@ -8,6 +8,11 @@ Exploring Covid data, currently focusing on mobility data.  Examining patterns, 
 
 ## Solution / Method
 Data from google_mobility/us-mobility.csv and New_York_Times/covid-19-state-level-data.csv. Data from the two csv files were combined into one json file. This data will populate a React table. Table will be filterable by state. This will be supplemented by plot comparing cases to transportation trends.
+## Installing
+### Tools Needed
+1. Jupyter Notebooks
+2. Node.js
+
 ## Data Sources
 https://www.kaggle.com/roche-data-science-coalition/uncover
 
