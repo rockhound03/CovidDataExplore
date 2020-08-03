@@ -3,8 +3,9 @@ var metaData;
 var allSampleData;
 var stateIDInfo;
 var currentOtuIds;
-var currentSampleValues;
+var currentStateValues;
 var currentOtuLabels;
+var selectedState;
 
 d3.json("./data/GeoIDs - State.json").then((data) => {
   stateIDInfo = Object.values(data);
@@ -15,13 +16,22 @@ d3.json("./data/GeoIDs - State.json").then((data) => {
   buildMenu(stNames);
   updateInfo
 })
-//console.log(stateIDInfo);
 //d3.json("./data/covid_data.json").then((data) => {
   //var stateNameID = Object.values(data.statename);
   //buildMenu(stateNameID);
   //console.log(sampleData);
  // updateInfo
 //})
+function statCollect(stateData, localState){
+  var statereturn;
+  stateData.forEach(oneState =>{
+    if(localState === oneState.statename){
+      statereturn =oneState;
+    }
+  });
+  return statereturn;
+}
+
 
 d3.selectAll("#selDataset").on("change", updateInfo);
 
@@ -29,6 +39,11 @@ function buildStates(sinf){
   return sinf.statename;
 }
 
+function buildStats(stateStuff){
+  if(selectedState === stateStuff.statename){
+    return stateStuff;
+  }
+}
 
 function buildMenu(ids){
 var menu = d3.select("#selDataset");
@@ -48,9 +63,11 @@ options.text(function(d) {
 
 function updateInfo(){
 var dropdownMenu = d3.select("#selDataset");
-var selectedState = dropdownMenu.property("value");
+selectedState = dropdownMenu.property("value");
 console.log(selectedState);
-//console.log(metaData);
+console.log(stateIDInfo);
+var justStats = statCollect(stateIDInfo,selectedState);
+console.log(justStats);
 //var patientData = metaData.filter(patient => patient.id == selectedOption);
 //console.log(patientData);
 //var patientSample = allSampleData.filter(sample => sample.id == selectedOption);
@@ -63,17 +80,22 @@ console.log(selectedState);
 // Bubble Plot ***************************
 //var largestSampleSize = Math.max(patientSorted[0].sample_values);
 
-
+var stateMetaBin = [];
+//console.log(patientData);
+//console.log("temp array launched.")
+stateMetaBin.push(`State Name: ${justStats.statename}`);
+stateMetaBin.push(`State ID: ${justStats.statefips}`);
+stateMetaBin.push(`State Abbrev: ${justStats.stateabbrev}`);
+stateMetaBin.push(`State Pop. (2019): ${justStats.state_pop2019}`);
+fillMetaData(stateMetaBin);
 //console.log(currentOtuIds);
 //console.log(barLabels);
-//sample-metadata
-
-
+//state-metadata
 }
 
 function fillMetaData(pData){
   console.log(pData);
-  var metaPanel = d3.select("#sample-metadata");
+  var metaPanel = d3.select("#state-metadata");
   var panel = metaPanel.selectAll("p").remove();
   var newPanel = metaPanel.selectAll("p")
     .data(pData)
