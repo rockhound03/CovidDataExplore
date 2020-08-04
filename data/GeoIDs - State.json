@@ -1,0 +1,308 @@
+[
+  {
+    "statefips": 1,
+    "statename": "Alabama",
+    "stateabbrev": "AL",
+    "state_pop2019": 4903185
+  },
+  {
+    "statefips": 2,
+    "statename": "Alaska",
+    "stateabbrev": "AK",
+    "state_pop2019": 731545
+  },
+  {
+    "statefips": 4,
+    "statename": "Arizona",
+    "stateabbrev": "AZ",
+    "state_pop2019": 7278717
+  },
+  {
+    "statefips": 5,
+    "statename": "Arkansas",
+    "stateabbrev": "AR",
+    "state_pop2019": 3017804
+  },
+  {
+    "statefips": 6,
+    "statename": "California",
+    "stateabbrev": "CA",
+    "state_pop2019": 39512223
+  },
+  {
+    "statefips": 8,
+    "statename": "Colorado",
+    "stateabbrev": "CO",
+    "state_pop2019": 5758736
+  },
+  {
+    "statefips": 9,
+    "statename": "Connecticut",
+    "stateabbrev": "CT",
+    "state_pop2019": 3565287
+  },
+  {
+    "statefips": 10,
+    "statename": "Delaware",
+    "stateabbrev": "DE",
+    "state_pop2019": 973764
+  },
+  {
+    "statefips": 11,
+    "statename": "District Of Columbia",
+    "stateabbrev": "DC",
+    "state_pop2019": 705749
+  },
+  {
+    "statefips": 12,
+    "statename": "Florida",
+    "stateabbrev": "FL",
+    "state_pop2019": 21477737
+  },
+  {
+    "statefips": 13,
+    "statename": "Georgia",
+    "stateabbrev": "GA",
+    "state_pop2019": 10617423
+  },
+  {
+    "statefips": 15,
+    "statename": "Hawaii",
+    "stateabbrev": "HI",
+    "state_pop2019": 1415872
+  },
+  {
+    "statefips": 16,
+    "statename": "Idaho",
+    "stateabbrev": "ID",
+    "state_pop2019": 1787065
+  },
+  {
+    "statefips": 17,
+    "statename": "Illinois",
+    "stateabbrev": "IL",
+    "state_pop2019": 12671821
+  },
+  {
+    "statefips": 18,
+    "statename": "Indiana",
+    "stateabbrev": "IN",
+    "state_pop2019": 6732219
+  },
+  {
+    "statefips": 19,
+    "statename": "Iowa",
+    "stateabbrev": "IA",
+    "state_pop2019": 3155070
+  },
+  {
+    "statefips": 20,
+    "statename": "Kansas",
+    "stateabbrev": "KS",
+    "state_pop2019": 2913314
+  },
+  {
+    "statefips": 21,
+    "statename": "Kentucky",
+    "stateabbrev": "KY",
+    "state_pop2019": 4467673
+  },
+  {
+    "statefips": 22,
+    "statename": "Louisiana",
+    "stateabbrev": "LA",
+    "state_pop2019": 4648794
+  },
+  {
+    "statefips": 23,
+    "statename": "Maine",
+    "stateabbrev": "ME",
+    "state_pop2019": 1344212
+  },
+  {
+    "statefips": 24,
+    "statename": "Maryland",
+    "stateabbrev": "MD",
+    "state_pop2019": 6045680
+  },
+  {
+    "statefips": 25,
+    "statename": "Massachusetts",
+    "stateabbrev": "MA",
+    "state_pop2019": 6892503
+  },
+  {
+    "statefips": 26,
+    "statename": "Michigan",
+    "stateabbrev": "MI",
+    "state_pop2019": 9986857
+  },
+  {
+    "statefips": 27,
+    "statename": "Minnesota",
+    "stateabbrev": "MN",
+    "state_pop2019": 5639632
+  },
+  {
+    "statefips": 28,
+    "statename": "Mississippi",
+    "stateabbrev": "MS",
+    "state_pop2019": 2976149
+  },
+  {
+    "statefips": 29,
+    "statename": "Missouri",
+    "stateabbrev": "MO",
+    "state_pop2019": 6137428
+  },
+  {
+    "statefips": 30,
+    "statename": "Montana",
+    "stateabbrev": "MT",
+    "state_pop2019": 1068778
+  },
+  {
+    "statefips": 31,
+    "statename": "Nebraska",
+    "stateabbrev": "NE",
+    "state_pop2019": 1934408
+  },
+  {
+    "statefips": 32,
+    "statename": "Nevada",
+    "stateabbrev": "NV",
+    "state_pop2019": 3080156
+  },
+  {
+    "statefips": 33,
+    "statename": "New Hampshire",
+    "stateabbrev": "NH",
+    "state_pop2019": 1359711
+  },
+  {
+    "statefips": 34,
+    "statename": "New Jersey",
+    "stateabbrev": "NJ",
+    "state_pop2019": 8882190
+  },
+  {
+    "statefips": 35,
+    "statename": "New Mexico",
+    "stateabbrev": "NM",
+    "state_pop2019": 2096829
+  },
+  {
+    "statefips": 36,
+    "statename": "New York",
+    "stateabbrev": "NY",
+    "state_pop2019": 19453561
+  },
+  {
+    "statefips": 37,
+    "statename": "North Carolina",
+    "stateabbrev": "NC",
+    "state_pop2019": 10488084
+  },
+  {
+    "statefips": 38,
+    "statename": "North Dakota",
+    "stateabbrev": "ND",
+    "state_pop2019": 762062
+  },
+  {
+    "statefips": 39,
+    "statename": "Ohio",
+    "stateabbrev": "OH",
+    "state_pop2019": 11689100
+  },
+  {
+    "statefips": 40,
+    "statename": "Oklahoma",
+    "stateabbrev": "OK",
+    "state_pop2019": 3956971
+  },
+  {
+    "statefips": 41,
+    "statename": "Oregon",
+    "stateabbrev": "OR",
+    "state_pop2019": 4217737
+  },
+  {
+    "statefips": 42,
+    "statename": "Pennsylvania",
+    "stateabbrev": "PA",
+    "state_pop2019": 12801989
+  },
+  {
+    "statefips": 44,
+    "statename": "Rhode Island",
+    "stateabbrev": "RI",
+    "state_pop2019": 1059361
+  },
+  {
+    "statefips": 45,
+    "statename": "South Carolina",
+    "stateabbrev": "SC",
+    "state_pop2019": 5148714
+  },
+  {
+    "statefips": 46,
+    "statename": "South Dakota",
+    "stateabbrev": "SD",
+    "state_pop2019": 884659
+  },
+  {
+    "statefips": 47,
+    "statename": "Tennessee",
+    "stateabbrev": "TN",
+    "state_pop2019": 6829174
+  },
+  {
+    "statefips": 48,
+    "statename": "Texas",
+    "stateabbrev": "TX",
+    "state_pop2019": 28995881
+  },
+  {
+    "statefips": 49,
+    "statename": "Utah",
+    "stateabbrev": "UT",
+    "state_pop2019": 3205958
+  },
+  {
+    "statefips": 50,
+    "statename": "Vermont",
+    "stateabbrev": "VT",
+    "state_pop2019": 623989
+  },
+  {
+    "statefips": 51,
+    "statename": "Virginia",
+    "stateabbrev": "VA",
+    "state_pop2019": 8535519
+  },
+  {
+    "statefips": 53,
+    "statename": "Washington",
+    "stateabbrev": "WA",
+    "state_pop2019": 7614893
+  },
+  {
+    "statefips": 54,
+    "statename": "West Virginia",
+    "stateabbrev": "WV",
+    "state_pop2019": 1792147
+  },
+  {
+    "statefips": 55,
+    "statename": "Wisconsin",
+    "stateabbrev": "WI",
+    "state_pop2019": 5822434
+  },
+  {
+    "statefips": 56,
+    "statename": "Wyoming",
+    "stateabbrev": "WY",
+    "state_pop2019": 578759
+  }
+]
