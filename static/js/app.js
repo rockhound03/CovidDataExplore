@@ -76,9 +76,9 @@ var columns = {
 };
 
 var settings = {excludeColumns: ["year", "month", "day", "statefips"]};
-var stats = new Statistics(selectedStateCases,columns,settings);
-var stateMean = stats.arithmeticMean("case_rate");
-console.log(stateMean);
+//var stats = new Statistics(selectedStateCases,columns,settings);
+//var stateMean = stats.arithmeticMean("case_rate");
+//console.log(stateMean);
 //"year": 2020,
 //"month": 1,
 //"day": 21,
@@ -100,7 +100,7 @@ stateMetaBin.push(`State Name: ${justStats.statename}`);
 stateMetaBin.push(`State ID: ${justStats.statefips}`);
 stateMetaBin.push(`State Abbrev: ${justStats.stateabbrev}`);
 stateMetaBin.push(`State Pop. (2019): ${justStats.state_pop2019}`);
-stateMetaBin.push(`Mean New Cases: ${stateMean.toFixed(2)}`);
+//stateMetaBin.push(`Mean New Cases: ${stateMean.toFixed(2)}`);
 fillMetaData(stateMetaBin);
 //console.log(currentOtuIds);
 //console.log(barLabels);
