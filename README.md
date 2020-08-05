@@ -8,9 +8,11 @@ Presentation dashboard notebook is Covid_analytics_dashboard.ipynb.
 ## Questions
 ### 1. Given shelter in place orders, is there a difference in population behavior based on state?
 ### 2. Does type of transport / purpose have an impact on behavioral changes?
-
+### 3. Does population density have impact on infection rate? - Visualization
 ## Solution / Method
 Data from google_mobility/us-mobility.csv and New_York_Times/covid-19-state-level-data.csv. Data from the two csv files were combined into one json file. This will be supplemented by plot comparing cases to transportation trends.
+### - Update 8/4/2020 
+A visualization of population / infection rate will be added.
 ## Installing
 ### Tools Needed
 1. Jupyter Notebooks, scipy.stats
