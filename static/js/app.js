@@ -65,7 +65,55 @@ console.log(selectedState);
 console.log(stateIDInfo);
 var justStats = statCollect(stateIDInfo,selectedState);
 selectedStateCases = caseCollect(stateCases, justStats.statefips);
-console.log(selectedStateCases);
+var dateArray = selectedStateCases.map((ldDate) => {
+  return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+});
+
+var caseArray = selectedStateCases.map((cData) => {
+  return cData.new_case_rate;
+});
+
+var bubbleSize = caseArray.map((sample) => {
+  return sample;
+});
+var sampleSize = caseArray.length;
+var bubbleColors = caseArray.map((sample) =>{
+  return d3.interpolateSinebow((sample + 1)/ sampleSize);
+});
+
+
+var trace1 = {
+  x: dateArray,
+  y: caseArray,
+  text: dateArray,
+  mode: 'markers',
+  marker: {
+    color:bubbleColors,
+    size: bubbleSize
+  }
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'New Case Bubble Plot',
+  showlegend: false,
+  height: 600,
+  width: 900,
+  xaxis: {
+    title: {
+      text: 'Case Date'}},
+  yaxis:{
+    title:{
+      text: 'Rate of New Cases'
+    }
+  }
+};
+
+Plotly.newPlot('bubble', data, layout);
+
+console.log(dateArray);
+console.log(caseArray);
 var columns = {
   year:'interval',
   month:'interval',
@@ -86,16 +134,10 @@ var settings = {excludeColumns: ["year", "month", "day", "statefips"]};
 //"case_rate": 0,
 //"new_case_rate": "."
 
-//var patientData = metaData.filter(patient => patient.id == selectedOption);
-//console.log(patientData);
-//var patientSample = allSampleData.filter(sample => sample.id == selectedOption);
-//var patientSorted = patientSample.sort(function sortFunction(a, b){
-  //return b.sample_values - a.sample_values;
-//});
+//var currentStateData = stateCases.filter(allcases => allcases.id == selectedOption);
 
 var stateMetaBin = [];
-//console.log(patientData);
-//console.log("temp array launched.")
+
 stateMetaBin.push(`State Name: ${justStats.statename}`);
 stateMetaBin.push(`State ID: ${justStats.statefips}`);
 stateMetaBin.push(`State Abbrev: ${justStats.stateabbrev}`);
