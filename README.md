@@ -18,6 +18,9 @@ A visualization of population / infection rate will be added.
 1. Jupyter Notebooks, scipy.stats
 2. Node.js
 
+## Plot of javascript dashboard
+https://rockhound03.github.io/CovidDataExplore/
+
 ## Data Sources
 https://www.kaggle.com/roche-data-science-coalition/uncover
 
