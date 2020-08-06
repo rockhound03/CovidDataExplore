@@ -65,7 +65,55 @@ console.log(selectedState);
 console.log(stateIDInfo);
 var justStats = statCollect(stateIDInfo,selectedState);
 selectedStateCases = caseCollect(stateCases, justStats.statefips);
-console.log(selectedStateCases);
+var dateArray = selectedStateCases.map((ldDate) => {
+  return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+});
+
+var caseArray = selectedStateCases.map((cData) => {
+  return cData.new_case_rate;
+});
+
+var bubbleSize = caseArray.map((sample) => {
+  return sample;
+});
+var sampleSize = caseArray.length;
+var bubbleColors = caseArray.map((sample) =>{
+  return d3.interpolateSinebow((sample + 1)/ sampleSize);
+});
+
+
+var trace1 = {
+  x: dateArray,
+  y: caseArray,
+  text: dateArray,
+  mode: 'markers',
+  marker: {
+    color:bubbleColors,
+    size: bubbleSize
+  }
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'New Case Bubble Plot',
+  showlegend: false,
+  height: 600,
+  width: 900,
+  xaxis: {
+    title: {
+      text: 'Case Date'}},
+  yaxis:{
+    title:{
+      text: 'Rate of New Cases'
+    }
+  }
+};
+
+Plotly.newPlot('bubble', data, layout);
+
+console.log(dateArray);
+console.log(caseArray);
 var columns = {
   year:'interval',
   month:'interval',
@@ -76,9 +124,9 @@ var columns = {
 };
 
 var settings = {excludeColumns: ["year", "month", "day", "statefips"]};
-var stats = new Statistics(selectedStateCases,columns,settings);
-var stateMean = stats.arithmeticMean("case_rate");
-console.log(stateMean);
+//var stats = new Statistics(selectedStateCases,columns,settings);
+//var stateMean = stats.arithmeticMean("case_rate");
+//console.log(stateMean);
 //"year": 2020,
 //"month": 1,
 //"day": 21,
@@ -86,21 +134,15 @@ console.log(stateMean);
 //"case_rate": 0,
 //"new_case_rate": "."
 
-//var patientData = metaData.filter(patient => patient.id == selectedOption);
-//console.log(patientData);
-//var patientSample = allSampleData.filter(sample => sample.id == selectedOption);
-//var patientSorted = patientSample.sort(function sortFunction(a, b){
-  //return b.sample_values - a.sample_values;
-//});
+//var currentStateData = stateCases.filter(allcases => allcases.id == selectedOption);
 
 var stateMetaBin = [];
-//console.log(patientData);
-//console.log("temp array launched.")
+
 stateMetaBin.push(`State Name: ${justStats.statename}`);
 stateMetaBin.push(`State ID: ${justStats.statefips}`);
 stateMetaBin.push(`State Abbrev: ${justStats.stateabbrev}`);
 stateMetaBin.push(`State Pop. (2019): ${justStats.state_pop2019}`);
-stateMetaBin.push(`Mean New Cases: ${stateMean.toFixed(2)}`);
+//stateMetaBin.push(`Mean New Cases: ${stateMean.toFixed(2)}`);
 fillMetaData(stateMetaBin);
 //console.log(currentOtuIds);
 //console.log(barLabels);
