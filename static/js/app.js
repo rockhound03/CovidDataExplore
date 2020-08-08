@@ -2,11 +2,15 @@
 var stateIDInfo;
 var selectedState;
 var stateCases;
+var stateDeath;
 var selectedStateCases;
 var selectedStateTransport;
+var selectedStateDeaths;
 var stateTransport;
 var currentTransport = "gps_away_from_home";
 var currentCaseDeath = "case_rate";
+var caseDeathDateArray;
+var caseArray;
 //var Statistics = require('./node_modules/statistics.js/statistics.js');
 d3.json("./data/GeoIDs - State.json").then((data) => {
   stateIDInfo = Object.values(data);
@@ -21,6 +25,10 @@ d3.json("./data/COVID Cases - State - Daily.json").then((data) => {
 
 d3.json("./data/Google Mobility - State - Daily.json").then((data) => {
   stateTransport = Object.values(data);
+});
+
+d3.json("./data/COVID Deaths - State - Daily.json").then((data) => {
+  stateDeath = Object.values(data);
 });
 
 function statCollect(stateData, localState){
@@ -144,6 +152,7 @@ selectedState = dropdownMenu.property("value");
 var justStats = statCollect(stateIDInfo,selectedState);
 selectedStateCases = caseCollect(stateCases, justStats.statefips);
 selectedStateTransport = caseCollect(stateTransport,justStats.statefips);
+selectedStateDeaths = caseCollect(stateDeath, justStats.statefips);
 // Transport - Mobility Plot Data -------------------------------------------------------
 var mobileDateArray = selectedStateTransport.map((localDate) => {
   return (localDate.month.toString() + "-" + localDate.day.toString() + "-" + localDate.year.toString());
@@ -194,17 +203,48 @@ var layout_mobile = {
 
 Plotly.newPlot('bubble_alt', data_mobile, layout_mobile);
 // Cases Plot data ----------------------------------------------------------------------
-var dateArray = selectedStateCases.map((ldDate) => {
-  return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
-});
+if(currentCaseDeath === "case_rate"){
+  caseDeathDateArray = selectedStateCases.map((ldDate) => {
+    return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+  });
+  caseArray = selectedStateCases.map((cData) => {
+    return cData[currentCaseDeath];
+  });
+  var bubbleSize = caseArray.map((sample) => {
+    return sample/80;
+  });
+} else if (currentCaseDeath === "new_case_rate"){
+  caseDeathDateArray = selectedStateCases.map((ldDate) => {
+    return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+  });
+  caseArray = selectedStateCases.map((cData) => {
+    return cData[currentCaseDeath];
+  });
+  var bubbleSize = caseArray.map((sample) => {
+    return sample;
+  });
+} else if (currentCaseDeath === "death_rate"){
+  caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
+    return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+  }); 
+  caseArray = selectedStateDeaths.map((cData) => {
+    return cData[currentCaseDeath];
+  });
+  var bubbleSize = caseArray.map((sample) => {
+    return sample;
+  });
+} else if (currentCaseDeath === "new_death_rate"){
+  caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
+    return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
+  });
+  caseArray = selectedStateDeaths.map((cData) => {
+    return cData[currentCaseDeath];
+  });
+  var bubbleSize = caseArray.map((sample) => {
+    return sample * 100;
+  });
+}
 
-var caseArray = selectedStateCases.map((cData) => {
-  return cData[currentCaseDeath];
-});
-
-var bubbleSize = caseArray.map((sample) => {
-  return sample;
-});
 var sampleSize = caseArray.length;
 var bubbleColors = caseArray.map((sample) =>{
   return d3.interpolateSinebow((sample + 1)/ sampleSize);
@@ -212,9 +252,9 @@ var bubbleColors = caseArray.map((sample) =>{
 
 
 var trace1 = {
-  x: dateArray,
+  x: caseDeathDateArray,
   y: caseArray,
-  text: dateArray,
+  text: caseDeathDateArray,
   mode: 'markers',
   marker: {
     color:bubbleColors,
