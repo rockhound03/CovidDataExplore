@@ -12,6 +12,7 @@ var currentCaseDeath = "case_rate";
 var caseDeathDateArray;
 var caseArray;
 
+
 //Data load calls from json files. --------------------------------
 d3.json("./data/GeoIDs - State.json").then((data) => {
   stateIDInfo = Object.values(data);
@@ -148,6 +149,21 @@ function button1Update(){
 
 // Update info call
 function updateInfo(){
+  if(currentTransport === "gps_retail_and_recreation"){
+    var mobilityTitle = "\"Retail and Recreation\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_grocery_and_pharmacy"){
+    var mobilityTitle = "\"Grocery and Pharmacy\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_parks"){
+    var mobilityTitle = "\"Parks\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_transit_stations"){
+    var mobilityTitle = "\"Transit Station\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_workplaces"){
+    var mobilityTitle = "\"Workplace\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_residential"){
+    var mobilityTitle = "\"Residential\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_away_from_home"){
+    var mobilityTitle = "\"Away from Home\" Mobility Data Bubble Plot";
+  }
 var dropdownMenu = d3.select("#selDataset");
 selectedState = dropdownMenu.property("value");
 
@@ -189,7 +205,7 @@ var trace_mobile = {
 var data_mobile = [trace_mobile];
 
 var layout_mobile = {
-  title: 'Mobility Data Bubble Plot',
+  title: mobilityTitle,
   showlegend: false,
   height: 630,
   width: 1200,
