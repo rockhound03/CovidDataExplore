@@ -3,12 +3,15 @@ var stateIDInfo;
 var selectedState;
 var stateCases;
 var stateDeath;
+var stateAffinity;
 var selectedStateCases;
 var selectedStateTransport;
 var selectedStateDeaths;
+var selectedStateAffinity;
 var stateTransport;
 var currentTransport = "gps_away_from_home";
 var currentCaseDeath = "case_rate";
+var currentAffinity = "";
 var caseDeathDateArray;
 var caseArray;
 
@@ -31,6 +34,10 @@ d3.json("./data/Google Mobility - State - Daily.json").then((data) => {
 
 d3.json("./data/COVID Deaths - State - Daily.json").then((data) => {
   stateDeath = Object.values(data);
+});
+
+d3.json("./data/Affinity - State - Daily.json").then((data) => {
+  stateAffinity = Object.values(data);
 });
 
 // ------------------------------------------------------------
@@ -166,6 +173,8 @@ var justStats = statCollect(stateIDInfo,selectedState);
 selectedStateCases = caseCollect(stateCases, justStats.statefips);
 selectedStateTransport = caseCollect(stateTransport,justStats.statefips);
 selectedStateDeaths = caseCollect(stateDeath, justStats.statefips);
+selectedStateAffinity = caseCollect(stateAffinity, justStats.statefips);
+
 // Transport - Mobility Plot Data -------------------------------------------------------
 var mobileDateArray = selectedStateTransport.map((localDate) => {
   return (localDate.month.toString() + "-" + localDate.day.toString() + "-" + localDate.year.toString());
@@ -227,6 +236,7 @@ if(currentCaseDeath === "case_rate"){
     return 7.5;
   });
   var casesPlotTitle = "Total Cases";
+  var casesPlotYLabel = "Total Cases";
 } else if (currentCaseDeath === "new_case_rate"){
   caseDeathDateArray = selectedStateCases.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -238,6 +248,7 @@ if(currentCaseDeath === "case_rate"){
     return sample;
   });
   var casesPlotTitle = "New Cases";
+  var casesPlotYLabel = "Rate of New Cases";
 } else if (currentCaseDeath === "death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -249,6 +260,7 @@ if(currentCaseDeath === "case_rate"){
     return 7.5;
   });
   var casesPlotTitle = "Total Deaths";
+  var casesPlotYLabel = "Total Deaths";
 } else if (currentCaseDeath === "new_death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -260,6 +272,7 @@ if(currentCaseDeath === "case_rate"){
     return sample * 100;
   });
   var casesPlotTitle = "Rate of Deaths";
+  var casesPlotYLabel = "Rate of New Deaths";
 }
 
 var sampleSize = caseArray.length;
@@ -291,13 +304,14 @@ var layout = {
       text: 'Case Date'}},
   yaxis:{
     title:{
-      text: 'Rate of New Cases'
+      text: casesPlotYLabel
     }
   }
 };
 
 Plotly.newPlot('bubble', data, layout);
 
+// Finance Plot data and layout.
 
 var columns = {
   year:'interval',
