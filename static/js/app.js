@@ -11,7 +11,9 @@ var currentTransport = "gps_away_from_home";
 var currentCaseDeath = "case_rate";
 var caseDeathDateArray;
 var caseArray;
-//var Statistics = require('./node_modules/statistics.js/statistics.js');
+
+
+//Data load calls from json files. --------------------------------
 d3.json("./data/GeoIDs - State.json").then((data) => {
   stateIDInfo = Object.values(data);
   var stNames = stateIDInfo.map(buildStates);
@@ -31,6 +33,7 @@ d3.json("./data/COVID Deaths - State - Daily.json").then((data) => {
   stateDeath = Object.values(data);
 });
 
+// ------------------------------------------------------------
 function statCollect(stateData, localState){
   var statereturn;
   stateData.forEach(oneState =>{
@@ -146,6 +149,21 @@ function button1Update(){
 
 // Update info call
 function updateInfo(){
+  if(currentTransport === "gps_retail_and_recreation"){
+    var mobilityTitle = "\"Retail and Recreation\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_grocery_and_pharmacy"){
+    var mobilityTitle = "\"Grocery and Pharmacy\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_parks"){
+    var mobilityTitle = "\"Parks\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_transit_stations"){
+    var mobilityTitle = "\"Transit Station\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_workplaces"){
+    var mobilityTitle = "\"Workplace\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_residential"){
+    var mobilityTitle = "\"Residential\" Mobility Data Bubble Plot";
+  } else if (currentTransport === "gps_away_from_home"){
+    var mobilityTitle = "\"Away from Home\" Mobility Data Bubble Plot";
+  }
 var dropdownMenu = d3.select("#selDataset");
 selectedState = dropdownMenu.property("value");
 
@@ -187,7 +205,7 @@ var trace_mobile = {
 var data_mobile = [trace_mobile];
 
 var layout_mobile = {
-  title: 'Mobility Data Bubble Plot',
+  title: mobilityTitle,
   showlegend: false,
   height: 630,
   width: 1200,
@@ -213,6 +231,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return 7.5;
   });
+  var casesPlotTitle = "Total Cases";
 } else if (currentCaseDeath === "new_case_rate"){
   caseDeathDateArray = selectedStateCases.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -223,6 +242,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return sample;
   });
+  var casesPlotTitle = "New Cases";
 } else if (currentCaseDeath === "death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -233,6 +253,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return 7.5;
   });
+  var casesPlotTitle = "Total Deaths";
 } else if (currentCaseDeath === "new_death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -243,6 +264,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return sample * 100;
   });
+  var casesPlotTitle = "Rate of Deaths";
 }
 
 var sampleSize = caseArray.length;
@@ -265,7 +287,7 @@ var trace1 = {
 var data = [trace1];
 
 var layout = {
-  title: 'New Case Bubble Plot',
+  title: casesPlotTitle + ' Bubble Plot',
   showlegend: false,
   height: 600,
   width: 1200,
