@@ -211,7 +211,7 @@ if(currentCaseDeath === "case_rate"){
     return cData[currentCaseDeath];
   });
   var bubbleSize = caseArray.map((sample) => {
-    return sample/80;
+    return 7.5;
   });
 } else if (currentCaseDeath === "new_case_rate"){
   caseDeathDateArray = selectedStateCases.map((ldDate) => {
@@ -231,7 +231,7 @@ if(currentCaseDeath === "case_rate"){
     return cData[currentCaseDeath];
   });
   var bubbleSize = caseArray.map((sample) => {
-    return sample;
+    return 7.5;
   });
 } else if (currentCaseDeath === "new_death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
