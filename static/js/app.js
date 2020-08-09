@@ -11,7 +11,8 @@ var currentTransport = "gps_away_from_home";
 var currentCaseDeath = "case_rate";
 var caseDeathDateArray;
 var caseArray;
-//var Statistics = require('./node_modules/statistics.js/statistics.js');
+
+//Data load calls from json files. --------------------------------
 d3.json("./data/GeoIDs - State.json").then((data) => {
   stateIDInfo = Object.values(data);
   var stNames = stateIDInfo.map(buildStates);
@@ -31,6 +32,7 @@ d3.json("./data/COVID Deaths - State - Daily.json").then((data) => {
   stateDeath = Object.values(data);
 });
 
+// ------------------------------------------------------------
 function statCollect(stateData, localState){
   var statereturn;
   stateData.forEach(oneState =>{
@@ -213,6 +215,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return 7.5;
   });
+  var casesPlotTitle = "Total Cases";
 } else if (currentCaseDeath === "new_case_rate"){
   caseDeathDateArray = selectedStateCases.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -223,6 +226,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return sample;
   });
+  var casesPlotTitle = "New Cases";
 } else if (currentCaseDeath === "death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -233,6 +237,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return 7.5;
   });
+  var casesPlotTitle = "Total Deaths";
 } else if (currentCaseDeath === "new_death_rate"){
   caseDeathDateArray = selectedStateDeaths.map((ldDate) => {
     return (ldDate.month.toString() + "-" + ldDate.day.toString() + "-" + ldDate.year.toString());
@@ -243,6 +248,7 @@ if(currentCaseDeath === "case_rate"){
   var bubbleSize = caseArray.map((sample) => {
     return sample * 100;
   });
+  var casesPlotTitle = "Rate of Deaths";
 }
 
 var sampleSize = caseArray.length;
@@ -265,7 +271,7 @@ var trace1 = {
 var data = [trace1];
 
 var layout = {
-  title: 'New Case Bubble Plot',
+  title: casesPlotTitle + ' Bubble Plot',
   showlegend: false,
   height: 600,
   width: 1200,
