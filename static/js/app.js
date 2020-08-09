@@ -141,11 +141,6 @@ options.text(function(d) {
   });
 };
 
-function button1Update(){
-  var buttonValue = d3.select(".button");
-  currentTransport = "gps_transit_stations";
-  updateInfo;
-}
 
 // Update info call
 function updateInfo(){
@@ -315,6 +310,7 @@ var columns = {
 
 var settings = {excludeColumns: ["year", "month", "day", "statefips"]};
 var stats = new Statistics(selectedStateCases,columns,settings);
+var stats_2 
 var stateMean = stats.arithmeticMean("case_rate");
 //console.log(stateMean);
 //"year": 2020,
