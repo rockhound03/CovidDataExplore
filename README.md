@@ -18,11 +18,12 @@ A visualization of population / infection rate will be added.
 1. Jupyter Notebooks, scipy.stats
 2. Node.js
 
-## Plot of javascript dashboard
+## Javascript dashboard with plots of mobility and Covid-19 case data.
 https://rockhound03.github.io/CovidDataExplore/
+With this tool one can explore the mobility, case and death data to view the interaction between rise in cases / deaths and how people move around.
 
 ## Data Sources
 https://www.kaggle.com/roche-data-science-coalition/uncover
 
 ## Status
-ReactJS table created. Currently implementing filter and plotting.
+ReactJS table created but removed for the plot dashboard. Currently implementing filter and plotting.
