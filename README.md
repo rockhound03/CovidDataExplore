@@ -24,6 +24,7 @@ With this tool one can explore the mobility, case and death data to view the int
 
 ## Data Sources
 https://www.kaggle.com/roche-data-science-coalition/uncover
+## Observations
 
 ## Status
 ReactJS table created but removed for the plot dashboard. Currently implementing filter and plotting.
