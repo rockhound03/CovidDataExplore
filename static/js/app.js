@@ -55,9 +55,9 @@ function caseCollect(caseData, stateID){
   var filteredStateCases = caseData.filter(cases => cases.statefips == stateID);
   return filteredStateCases;
 };
-
+// State menu
 d3.selectAll("#selDataset").on("change", updateInfo);
-
+// Mobility buttons
 var trainButton = d3.select(".button1");
 var groceryButton = d3.select(".button2");
 var recreationButton = d3.select(".button3");
@@ -65,6 +65,7 @@ var parksButton = d3.select(".button4");
 var workButton = d3.select(".button5");
 var residentialButton = d3.select(".button6");
 var awayButton = d3.select(".button7");
+// Cases / Deaths buttons
 var casesButton = d3.select(".button8");
 var newCaseButton = d3.select(".button9");
 var deathButton = d3.select(".button10");

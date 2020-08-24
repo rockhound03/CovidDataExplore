@@ -7,11 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Covid-19 Analysis</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+  <script src="like_button.js"></script>
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
@@ -30,6 +31,17 @@
             <h3 class="panel-title">Demographic Info</h3>
           </div>
           <div id="state-metadata" class="panel-body"></div>
+          <div id="container_react">
+            <!-- This element's contents will be replaced with your component. -->
+        </div>
+        <script type="text/babel">
+
+          ReactDOM.render(
+            <h1>React Object</h1>,
+            document.getElementById('#container_react')
+          );
+    
+        </script>
         </div>
       </div>
       <div class="col-md-5">
