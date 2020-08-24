@@ -27,4 +27,6 @@ https://www.kaggle.com/roche-data-science-coalition/uncover
 ## Observations
 
 ## Status
-ReactJS table created but removed for the plot dashboard. Currently implementing filter and plotting.
+State transport and covid case data plot dashboard. Currently implementing filter and plotting.
+State financial data will be added to dashboard to show relationship between shutdowns to financial status.
+ReactJS table with state filter function created. Table will be integrated with dashboard.
